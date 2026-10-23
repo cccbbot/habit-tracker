@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>人生回报率习惯追踪</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="config.js"></script>
+</head>
+<body>
+  <!-- 登录 / 注册遮罩 -->
+  <div id="authScreen" class="auth-screen">
+    <div class="auth-card">
+      <div class="brand big">🌱 人生回报率习惯追踪</div>
+      <p class="auth-sub">登录后多设备数据自动同步</p>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-mode="signin">登录</button>
+        <button class="auth-tab" data-mode="signup">注册</button>
+      </div>
+      <input type="email" id="email" placeholder="邮箱" autocomplete="username" />
+      <input type="password" id="password" placeholder="密码（至少6位）" autocomplete="current-password" />
+      <button id="authSubmit" class="btn block">登录</button>
+      <div id="authMsg" class="auth-msg"></div>
+      <div class="auth-hint">提示：若注册后无法登录，请在 Supabase 控制台 Auth → Providers → Email 关闭「Confirm email」。</div>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">🌱 人生回报率习惯追踪</div>
+    <nav class="tabs">
+      <button class="tab active" data-view="today">今日打卡</button>
+      <button class="tab" data-view="report">分析报告</button>
+    </nav>
+    <div class="userbox">
+      <span id="userEmail" class="user-email"></span>
+      <button id="signOutBtn" class="btn tiny">退出</button>
+      <input type="date" id="datePicker" />
+    </div>
+  </header>
+
+  <div id="banner" class="banner hidden"></div>
+
+  <main>
+    <!-- 今日打卡 -->
+    <section id="view-today" class="view">
+      <div class="today-summary" id="todaySummary"></div>
+      <div id="habitList"></div>
+    </section>
+
+    <!-- 分析报告 -->
+    <section id="view-report" class="view hidden">
+      <div id="reportCards" class="cards"></div>
+      <div class="chart-grid">
+        <div class="card">
+          <h3>各类别完成率（近30天）</h3>
+          <canvas id="catChart"></canvas>
+        </div>
+        <div class="card">
+          <h3>近30天每日完成趋势</h3>
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h3>近30天热力图</h3>
+        <div id="heatmap" class="heatmap"></div>
+        <div class="heat-legend">
+          <span>少</span><i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i><span>多</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>自动分析报告</h3>
+        <div id="reportText" class="report-text"></div>
+      </div>
+      <button id="refreshBtn" class="btn">刷新数据</button>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
