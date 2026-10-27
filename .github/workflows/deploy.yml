@@ -17,7 +17,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.SERVER_HOST }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
-          TARGET: ${{ secrets.DEPLOY_PATH }}
+          TARGET: "/var/www/habit-tracker"
           SOURCE: "./"
           ARGS: "-avz --delete --exclude='.git' --exclude='.github' --exclude='README.md' --exclude='deploy'"
           SSH_CMD_ARGS: "-o StrictHostKeyChecking=accept-new"
