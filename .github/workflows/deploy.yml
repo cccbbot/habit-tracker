@@ -19,4 +19,4 @@ jobs:
           REMOTE_USER: ${{ secrets.SERVER_USER }}
           TARGET: ${{ secrets.DEPLOY_PATH }}
           SOURCE: "./"
-          ARGS: "-avz --delete --exclude='.git' --exclude='.github' --exclude='README.md'"
+          ARGS: "-avz --delete --exclude='.git' --exclude='.github' --exclude='README.md' --exclude='deploy'"
