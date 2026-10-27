@@ -165,10 +165,10 @@
   // ---------- 渲染：今日打卡 ----------
   function renderToday() {
     const stats = computeStats();
-    const pct = state.total ? Math.round((stats.todayCnt / state.total) * 100) : 0;
+    const pct = stats.total ? Math.round((stats.todayCnt / stats.total) * 100) : 0;
     $("todaySummary").innerHTML = `
       <div class="progress-wrap">
-        <div class="progress-meta"><span>${state.date} 完成度</span><span>${stats.todayCnt} / ${state.total}（${pct}%）</span></div>
+        <div class="progress-meta"><span>${state.date} 完成度</span><span>${stats.todayCnt} / ${stats.total}（${pct}%）</span></div>
         <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
       </div>`;
 
@@ -217,7 +217,7 @@
     const bestCat = catNames.filter(c => stats.catAgg[c].rate != null).sort((a, b) => stats.catAgg[b].rate - stats.catAgg[a].rate)[0];
     const worstCat = catNames.filter(c => stats.catAgg[c].rate != null).sort((a, b) => stats.catAgg[a].rate - stats.catAgg[b].rate)[0];
     $("reportCards").innerHTML = `
-      <div class="card-box"><div class="num">${stats.todayCnt}/${state.total}</div><div class="lbl">今日完成</div></div>
+      <div class="card-box"><div class="num">${stats.todayCnt}/${stats.total}</div><div class="lbl">今日完成</div></div>
       <div class="card-box"><div class="num">${stats.dailyFrac.reduce((s, d) => s + d.cnt, 0)}</div><div class="lbl">近30天总打卡</div></div>
       <div class="card-box"><div class="num">${maxStreak}</div><div class="lbl">最长连续(天)</div></div>
       <div class="card-box"><div class="num">${bestCat ? Math.round(stats.catAgg[bestCat].rate * 100) + "%" : "—"}</div><div class="lbl">最佳类别 ${bestCat || ""}</div></div>`;
@@ -249,7 +249,7 @@
     const zeroDaily = state.habits.filter(h => h.cadence === "daily" && stats.habitStats[h.id].streak === 0 && stats.habitStats[h.id].d30 === 0).map(h => h.zh);
     const lines = [
       `【近${REPORT_DAYS}天习惯分析报告 · ${state.date}】`,
-      `• 总打卡 ${stats.dailyFrac.reduce((s, d) => s + d.cnt, 0)} 次，今日完成 ${stats.todayCnt}/${state.total} 项。`,
+      `• 总打卡 ${stats.dailyFrac.reduce((s, d) => s + d.cnt, 0)} 次，今日完成 ${stats.todayCnt}/${stats.total} 项。`,
       `• 最佳类别：${bestCat || "—"}（完成率 ${bestCat ? Math.round(stats.catAgg[bestCat].rate * 100) : 0}%）。`,
       `• 待加强类别：${worstCat || "—"}（完成率 ${worstCat ? Math.round(stats.catAgg[worstCat].rate * 100) : 0}%）。`,
       `• 最长连续打卡：${maxStreak} 天。`,
