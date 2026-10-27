@@ -58,11 +58,11 @@
   // ---------- 认证 ----------
   async function handleAuth(mode) {
     const email = $("email").value.trim();
-    const pw = $("password").value;
+    const password = $("password").value;
     const msg = $("authMsg");
     msg.textContent = ""; msg.className = "auth-msg";
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.textContent = "请输入有效邮箱"; return; }
-    if (pw.length < 6) { msg.textContent = "密码至少 6 位"; return; }
+    if (password.length < 6) { msg.textContent = "密码至少 6 位"; return; }
     try {
       let res;
       if (mode === "signin") res = await client.auth.signInWithPassword({ email, password });
